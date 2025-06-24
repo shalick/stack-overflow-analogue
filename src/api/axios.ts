@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
   withCredentials: true,
 });
 
@@ -10,7 +10,7 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
-        await api.post("/refresh");
+        await api.post('/refresh');
         return api(error.config);
       } catch (refreshError) {
         return Promise.reject(refreshError);

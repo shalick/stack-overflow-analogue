@@ -6,11 +6,18 @@ import HomePage from "./pages/home/HomePage.tsx";
 import PostsPage from "./pages/posts/PostsPage.tsx";
 import { PostPage } from "./pages/posts/PostPage.tsx";
 import { NotFoundPage } from "./pages/notfound/NotFoundPage.tsx";
+import RegistrationPage from "./pages/register/RegistrationPage.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/registration",
+    element: <RegistrationPage />,
     errorElement: <NotFoundPage />,
   },
   {
@@ -25,8 +32,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );
