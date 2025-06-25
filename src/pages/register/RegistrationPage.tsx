@@ -6,7 +6,7 @@ import { TextField, Button, Box } from "@mui/material";
 
 const schema = z
   .object({
-    email: z.string().email("Invalid email"),
+    username: z.string(),
     password: z.string().min(6, "Password must be at least 6 characters"),
     passwordConfirmation: z.string(),
   })
@@ -16,15 +16,6 @@ const schema = z
   });
 
 type RegisterFormInputs = z.infer<typeof schema>;
-
-// const schema = z.object({
-//   email: z.string().email(),
-//   password: z.string().min(8),
-// });
-// type FormFields = {
-//   email: string;
-//   password: string;
-// };
 
 const RegistrationPage = () => {
   const registerMutation = useRegister();
@@ -37,7 +28,7 @@ const RegistrationPage = () => {
   });
 
   const onSubmit = (data: RegisterFormInputs) => {
-    registerMutation.mutate({ email: data.email, password: data.password });
+    registerMutation.mutate({ username: data.username, password: data.password });
   };
 
   return (
@@ -54,9 +45,9 @@ const RegistrationPage = () => {
     >
       <TextField
         label="Email"
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
+        {...register("username")}
+        error={!!errors.username}
+        helperText={errors.username?.message}
       />
       <TextField
         type="password"

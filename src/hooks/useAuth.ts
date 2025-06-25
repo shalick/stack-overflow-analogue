@@ -46,13 +46,13 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: async ({
-      email,
+      username,
       password,
     }: {
-      email: string;
+      username: string;
       password: string;
     }) => {
-      const res = await api.post("/register", { email, password });
+      const res = await api.post("/register", { username, password });
       return res.data;
     },
     onSuccess: (data) => {
