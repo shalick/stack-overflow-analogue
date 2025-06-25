@@ -44,7 +44,7 @@ const RegistrationPage = () => {
       }}
     >
       <TextField
-        label="Email"
+        label="Username"
         {...register("username")}
         error={!!errors.username}
         helperText={errors.username?.message}

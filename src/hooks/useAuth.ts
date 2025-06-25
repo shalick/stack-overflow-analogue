@@ -9,13 +9,13 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: async ({
-      email,
+      username,
       password,
     }: {
-      email: string;
+      username: string;
       password: string;
     }) => {
-      const res = await api.post("/login", { email, password });
+      const res = await api.post("/login", { username, password });
       return res.data;
     },
     onSuccess: (data) => {
