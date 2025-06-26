@@ -1,43 +1,7 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { routes } from "./routes.ts";
-import HomePage from "./pages/home/HomePage.tsx";
-import PostsPage from "./pages/posts/PostsPage.tsx";
-import { PostPage } from "./pages/posts/PostPage.tsx";
-import { NotFoundPage } from "./pages/notfound/NotFoundPage.tsx";
-import RegistrationPage from "./pages/register/RegistrationPage.tsx";
-import LoginPage from "./pages/login/LoginPage.tsx";
-
-const router = createBrowserRouter([
-  {
-    path: routes.home,
-    element: <HomePage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.login,
-    element: <LoginPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.register,
-    element: <RegistrationPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.posts,
-    element: <PostsPage />,
-    children: [
-      {
-        path: routes.post,
-        element: <PostPage />,
-      },
-    ],
-  },
-]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <div>Optional layout or fallback UI</div>;
 }
 
 export default App;
