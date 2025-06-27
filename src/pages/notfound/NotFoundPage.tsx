@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
   return (
     <div className="flex flex-col gap-2">
       <div>404 Not Found</div>
@@ -8,3 +8,5 @@ export const NotFoundPage = () => {
     </div>
   );
 };
+
+export default NotFoundPage;

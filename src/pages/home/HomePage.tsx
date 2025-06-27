@@ -1,7 +1,10 @@
-export default function HomePage() {
+import { useAuthStore } from '../../auth/useAuthStore';
+
+const HomePage = () => {
+  const { user} = useAuthStore();
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
-  );
+    <div>{user?.username}</div>
+  )
 }
+
+export default HomePage

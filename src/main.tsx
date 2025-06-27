@@ -1,32 +1,63 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
-import HomePage from "./pages/home/HomePage.tsx";
-import PostsPage from "./pages/posts/PostsPage.tsx";
-import { PostPage } from "./pages/posts/PostPage.tsx";
-import { NotFoundPage } from "./pages/notfound/NotFoundPage.tsx";
+import { routes } from "./routes.ts";
+// import App from "./App.tsx";
+import {
+  HomePage,
+  PostsPage,
+  PostPage,
+  NotFoundPage,
+  RegistrationPage,
+  LoginPage,
+} from "./pages/pages.ts";
+import { HeaderLayout } from "./layouts/layouts.ts";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/posts",
-    element: <PostsPage />,
+    Component: HeaderLayout,
     children: [
-      {
-        path: "/posts/:postId",
-        element: <PostPage />,
-      },
+      { path: routes.home, element: <HomePage /> },
+      { path: routes.register, element: <RegistrationPage /> },
+      { path: routes.login, element: <LoginPage /> },
     ],
   },
+  // {
+  //   path: routes.home,
+  //   element: <HomePage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.login,
+  //   element: <LoginPage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.register,
+  //   element: <RegistrationPage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.posts,
+  //   element: <PostsPage />,
+  //   children: [
+  //     {
+  //       path: routes.post,
+  //       element: <PostPage />,
+  //     },
+  //   ],
+  // },
 ]);
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );

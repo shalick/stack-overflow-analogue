@@ -1,11 +1,7 @@
-import './App.css'
+import "./App.css";
 
 function App() {
-
-  return (
-    <>
-    </>
-  )
+  return <div>Optional layout or fallback UI</div>;
 }
 
-export default App
+export default App;
