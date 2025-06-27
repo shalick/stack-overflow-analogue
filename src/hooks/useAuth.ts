@@ -4,7 +4,7 @@ import { useAuthStore } from "../auth/useAuthStore";
 import { toast } from "react-hot-toast";
 
 export const useLogin = () => {
-  const setUser = useAuthStore((state) => state.setUser);
+  const { setUser } = useAuthStore();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -15,12 +15,12 @@ export const useLogin = () => {
       username: string;
       password: string;
     }) => {
-      const res = await api.post("/login", { username, password });
+      const res = await api.post("auth/login", { username, password });
       return res.data;
     },
-    onSuccess: (data) => {
-      setUser(data.user);
-      toast.success("Logged in successfully!");
+    onSuccess: ({ data, message }) => {
+      setUser(data);
+      toast.success("Logged in successfully!", message);
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },
     onError: () => toast.error("Login failed"),
@@ -31,7 +31,7 @@ export const useLogout = () => {
   const clearUser = useAuthStore((state) => state.clearUser);
 
   return useMutation({
-    mutationFn: () => api.post("/logout"),
+    mutationFn: () => api.post("auth/logout"),
     onSuccess: () => {
       clearUser();
       toast.success("Logged out");
@@ -56,7 +56,7 @@ export const useRegister = () => {
       return res.data;
     },
     onSuccess: (data) => {
-      setUser(data.user);
+      setUser(data);
       toast.success("Registered successfully!");
       queryClient.invalidateQueries({ queryKey: ["me"] });
     },

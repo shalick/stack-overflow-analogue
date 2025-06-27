@@ -24,31 +24,31 @@ const router = createBrowserRouter([
       { path: routes.login, element: <LoginPage /> },
     ],
   },
-  {
-    path: routes.home,
-    element: <HomePage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.login,
-    element: <LoginPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.register,
-    element: <RegistrationPage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: routes.posts,
-    element: <PostsPage />,
-    children: [
-      {
-        path: routes.post,
-        element: <PostPage />,
-      },
-    ],
-  },
+  // {
+  //   path: routes.home,
+  //   element: <HomePage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.login,
+  //   element: <LoginPage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.register,
+  //   element: <RegistrationPage />,
+  //   errorElement: <NotFoundPage />,
+  // },
+  // {
+  //   path: routes.posts,
+  //   element: <PostsPage />,
+  //   children: [
+  //     {
+  //       path: routes.post,
+  //       element: <PostPage />,
+  //     },
+  //   ],
+  // },
 ]);
 
 const queryClient = new QueryClient();
@@ -57,7 +57,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <CssBaseline />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
 );

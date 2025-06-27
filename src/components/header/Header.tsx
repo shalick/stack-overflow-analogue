@@ -1,22 +1,23 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { routes } from "../../routes.ts";
+import { useLogout } from "../../hooks/useAuth";
 import ButtonLink from "../button-link/ButtonLink.tsx";
-// import { useLogin } from "../../hooks/useAuth.ts";
+import { useAuthStore } from "../../auth/useAuthStore.ts";
 
 const Header = () => {
-  // const { isAuthorized } = useLogin();
-  const isAuthorized = true;
+  const { user } = useAuthStore();
+  const logoutMutation = useLogout();
 
   return (
-    <AppBar position="sticky" >
+    <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Codelang
         </Typography>
 
-        {isAuthorized ? (
+        {user ? (
           <Box>
-            <Button color={"inherit"}>
+            <Button color={"inherit"} onClick={() => logoutMutation.mutate()}>
               Logout
             </Button>
           </Box>
