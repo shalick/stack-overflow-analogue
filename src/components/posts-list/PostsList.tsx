@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, CircularProgress, Pagination, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/posts.ts";
 import type { Post } from "../../types/post.ts";
@@ -9,7 +10,7 @@ interface IPostsListProps {
 }
 
 const PostsList = ({ userId }: IPostsListProps) => {
-  const currentPage = 1;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["posts", currentPage, userId],
@@ -17,6 +18,7 @@ const PostsList = ({ userId }: IPostsListProps) => {
   });
 
   const posts: Post[] = data?.data ?? [];
+  const totalPages = data?.meta?.totalPages || 1;
 
   return (
     <Box>
@@ -25,13 +27,24 @@ const PostsList = ({ userId }: IPostsListProps) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "0rem",
+          gap: "1rem",
         }}
       >
-        <Typography variant="h6">
-          Welcome to Codelang!
-        </Typography>
-        <Typography variant="h4">{"</>"}</Typography>
+        <Box>
+          <Typography variant="h6" sx={{ mb: 0 }}>
+            Welcome to Codelang!
+          </Typography>
+          <Typography textAlign="center" variant="h4">
+            {"</>"}
+          </Typography>
+        </Box>
+        <Pagination
+          sx={{ marginBottom: "1rem" }}
+          count={totalPages}
+          page={currentPage}
+          shape="rounded"
+          onChange={(_, page) => setCurrentPage(page)}
+        />
       </Box>
 
       {isLoading ? (
