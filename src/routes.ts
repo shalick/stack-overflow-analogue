@@ -4,5 +4,12 @@ export const routes = {
   register: "/register",
   posts: "/posts",
   post: "/posts/:postId",
+  userPosts: '/my-posts',
+  account: "/account",
+  createPost: "/create-post",
+  editPost: "/edit-post/:postId",
+  users: "/users",
+  questions: "/questions",
+  createQuestion: "/create-question",
   notFound: "*",
 };

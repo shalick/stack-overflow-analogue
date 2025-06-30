@@ -16,7 +16,8 @@ const Header = () => {
         </Typography>
 
         {user ? (
-          <Box>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography>{user?.username}</Typography>
             <Button color={"inherit"} onClick={() => logoutMutation.mutate()}>
               Logout
             </Button>

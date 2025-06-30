@@ -14,16 +14,32 @@ import {
 } from "./pages/pages.ts";
 import { HeaderLayout } from "./layouts/layouts.ts";
 import CssBaseline from "@mui/material/CssBaseline";
+import SidebarLayout from "./layouts/sidebar/SidebarLayout.tsx";
 
 const router = createBrowserRouter([
   {
     Component: HeaderLayout,
     children: [
-      { path: routes.home, element: <HomePage /> },
       { path: routes.register, element: <RegistrationPage /> },
       { path: routes.login, element: <LoginPage /> },
     ],
   },
+  {
+    Component: SidebarLayout,
+    children: [{ path: routes.home, element: <HomePage /> }],
+  },
+  // {
+  //   Component: HeaderLayout,
+  //   children: [
+  //     // { path: routes.home, element: <HomePage /> },
+  //     { path: routes.register, element: <RegistrationPage /> },
+  //     { path: routes.login, element: <LoginPage /> },
+  //   ],
+  // },
+  // {
+  //   Component: SidebarLayout,
+  //   children: [{ path: routes.home, element: <HomePage /> }],
+  // },
   // {
   //   path: routes.home,
   //   element: <HomePage />,
