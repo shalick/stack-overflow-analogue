@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, CircularProgress, Pagination, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/posts.ts";
-import type { CommentResponse, Post } from "../../types/post.ts";
+import type { Post } from "../../types/post.ts";
 import PostCard from "../post-card/PostCard.tsx";
 
 interface IPostsListProps {
@@ -11,7 +11,6 @@ interface IPostsListProps {
 
 const PostsList = ({ userId }: IPostsListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [areCommentsShownIds, setAreCommentsShownIds] = useState<string[]>([])
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["posts", currentPage, userId],
@@ -20,19 +19,6 @@ const PostsList = ({ userId }: IPostsListProps) => {
 
   const posts: Post[] = data?.data ?? [];
   const totalPages = data?.meta?.totalPages || 1;
-
-  const handleToggleCommentsRequested = (id: string) => {
-        if (areCommentsShownIds.includes(id)) {
-            const resultIds = areCommentsShownIds.filter((commentId) => commentId !== id)
-            setAreCommentsShownIds(resultIds)
-        } else {
-            setAreCommentsShownIds([...areCommentsShownIds, id])
-        }
-    }
-
-    const handleCommentAdded = (post: Post, comment: CommentResponse) => {
-        post.comments = [...post.comments, comment];
-    }
 
   return (
     <Box>
@@ -88,13 +74,6 @@ const PostsList = ({ userId }: IPostsListProps) => {
             <PostCard
               post={post}
               key={index}
-              showViewButton={true}
-              enableCommentsScroll={true}
-              areCommentsShown={areCommentsShownIds.includes(post.id)}
-              onToggleCommentsRequested={() =>
-                handleToggleCommentsRequested(post.id)
-              }
-              onCommentAdded={(comment) => handleCommentAdded(post, comment)}
             />
           ))}
         </Box>

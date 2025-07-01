@@ -15,6 +15,7 @@ import {
 import { HeaderLayout } from "./layouts/layouts.ts";
 import CssBaseline from "@mui/material/CssBaseline";
 import SidebarLayout from "./layouts/sidebar/SidebarLayout.tsx";
+import ViewPostPage from "./pages/view-post/ViewPostPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
   },
   {
     Component: SidebarLayout,
-    children: [{ path: routes.home, element: <HomePage /> }],
+    children: [
+      { path: routes.home, element: <HomePage /> },
+      { path: routes.post, element: <ViewPostPage /> },
+    ],
   },
   // {
   //   Component: HeaderLayout,
@@ -41,8 +45,8 @@ const router = createBrowserRouter([
   //   children: [{ path: routes.home, element: <HomePage /> }],
   // },
   // {
-  //   path: routes.home,
-  //   element: <HomePage />,
+  //   path: routes.post,
+  //   element: <ViewPostPage />,
   //   errorElement: <NotFoundPage />,
   // },
   // {

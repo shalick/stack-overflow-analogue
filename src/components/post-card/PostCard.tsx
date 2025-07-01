@@ -1,12 +1,10 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import {
   Card,
   CardContent,
   Box,
   IconButton,
   Typography,
-  TextField,
-  Button,
   Divider,
 } from "@mui/material";
 import {
@@ -16,66 +14,24 @@ import {
   Comment as CommentIcon,
   Code as CodeIcon,
   ModeEditOutlineOutlined as ModeEditOutlineOutlinedIcon,
-  VisibilityOutlined as VisibilityOutlinedIcon,
 } from "@mui/icons-material";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { addComment } from "../../api/comments.ts";
 import { usePostMarks } from "../../hooks/usePostMarks.ts";
-import type { Post, CommentResponse } from "../../types/post.ts";
+import type { Post } from "../../types/post.ts";
 import { useAuthStore } from "../../auth/useAuthStore.ts";
 import { Link } from "react-router-dom";
-import CommentCard from "../comment-card/CommendCard.tsx";
-
-const schema = z.object({ comment: z.string().nonempty() });
-type Schema = z.infer<typeof schema>;
 
 interface PostProps {
   post: Post;
-  areCommentsShown: boolean;
-  showViewButton?: boolean;
-  enableCommentsScroll?: boolean;
-  onToggleCommentsRequested: () => void;
-  onCommentAdded: (comment: CommentResponse) => void;
 }
 
 const PostCard: FC<PostProps> = ({
   post,
-  areCommentsShown,
-  showViewButton,
-  enableCommentsScroll,
-  onToggleCommentsRequested,
-  onCommentAdded,
 }) => {
   const { user, language, code, comments } = post;
+  const { likesCount, dislikesCount, like, dislike } = usePostMarks(post);
   const currentUserId = useAuthStore((s) => s.user?.id);
-  const [loading, setLoading] = useState(false);
-
-  const { likesCount, dislikesCount, like, dislike } =
-    usePostMarks(post);
-
-  const { control, handleSubmit, reset } = useForm<Schema>({
-    resolver: zodResolver(schema),
-    defaultValues: { comment: "" },
-    disabled: loading,
-  });
-
-  const onSubmit = async (data: Schema) => {
-    try {
-      setLoading(true);
-      const newComment = await addComment({
-        content: data.comment,
-        snippetId: post.id,
-      });
-      onCommentAdded(newComment);
-      reset();
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <Card sx={{ mb: 3 }}>
@@ -132,69 +88,14 @@ const PostCard: FC<PostProps> = ({
                 <ThumbDownOffAltIcon />
               </IconButton>
             </Box>
-
-            {showViewButton && (
-              <Link color="inherit" to={`/post/${post.id}`}>
-                <VisibilityOutlinedIcon />
-              </Link>
-            )}
           </Box>
 
-          <IconButton onClick={onToggleCommentsRequested}>
+          <IconButton>
             <Typography>{comments.length}</Typography>
-            <CommentIcon />
+            <Link color="inherit" to={`/post/${post.id}`} state={{ post }}>
+              <CommentIcon />
+            </Link>
           </IconButton>
-        </Box>
-
-        <Box
-          sx={
-            enableCommentsScroll
-              ? { maxHeight: "300px", overflowY: "auto", overflowX: "hidden" }
-              : {}
-          }
-        >
-          {areCommentsShown && (
-            <CardContent
-              sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-            >
-              {comments.map((comment, index) => (
-                <CommentCard key={index}>{comment.content}</CommentCard>
-              ))}
-
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                  control={control}
-                  name="comment"
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      fullWidth
-                      label="Comment"
-                      variant="outlined"
-                      margin="normal"
-                      {...field}
-                      error={!!error}
-                      helperText={error?.message}
-                    />
-                  )}
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  sx={{ mt: 2 }}
-                >
-                  Add comment
-                </Button>
-              </form>
-            </CardContent>
-          )}
-
-          {areCommentsShown && comments.length === 0 && (
-            <Typography sx={{ textAlign: "center" }}>
-              There are no comments yet
-            </Typography>
-          )}
         </Box>
       </CardContent>
     </Card>
