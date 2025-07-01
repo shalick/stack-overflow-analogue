@@ -20,6 +20,17 @@ export interface Comment {
     content: string;
 }
 
+export interface CreateCommentRequest {
+    content: string,
+    snippetId: string
+}
+
+export interface CommentResponse {
+    id: string,
+    content: string,
+    user: User
+}
+
 export interface CreatePost  {
     code: string;
     language: string;
