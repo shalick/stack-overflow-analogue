@@ -1,10 +1,7 @@
-import { useAuthStore } from '../../auth/useAuthStore';
+import PostsList from "../../components/posts-list/PostsList";
 
 const HomePage = () => {
-  const { user} = useAuthStore();
-  return (
-    <div>{user?.username}</div>
-  )
-}
+  return <PostsList />;
+};
 
-export default HomePage
+export default HomePage;
