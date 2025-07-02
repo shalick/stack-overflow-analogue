@@ -3,7 +3,7 @@ export const routes = {
   login: "/login",
   register: "/register",
   posts: "/posts",
-  post: "/posts/:postId",
+  post: "/post/:postId",
   userPosts: '/my-posts',
   account: "/account",
   createPost: "/create-post",
