@@ -17,6 +17,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import SidebarLayout from "./layouts/sidebar/SidebarLayout.tsx";
 import ViewPostPage from "./pages/view-post/ViewPostPage.tsx";
 import AccountPage from "./pages/account/AccountPage.tsx";
+import CreateSnippetPage from "./pages/create-snippet/CreateSnippetPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: routes.home, element: <HomePage /> },
       { path: routes.post, element: <ViewPostPage /> },
       { path: routes.account, element: <AccountPage /> },
+      { path: routes.createPost, element: <CreateSnippetPage /> },
     ],
   },
   // {
