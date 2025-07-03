@@ -19,6 +19,7 @@ import ViewPostPage from "./pages/view-post/ViewPostPage.tsx";
 import AccountPage from "./pages/account/AccountPage.tsx";
 import CreateSnippetPage from "./pages/create-snippet/CreateSnippetPage.tsx";
 import MyPostsPage from "./pages/my-posts/MyPostsPage.tsx";
+import UsersList from "./components/users-list/UsersList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: routes.account, element: <AccountPage /> },
       { path: routes.createPost, element: <CreateSnippetPage /> },
       { path: routes.myPosts, element: <MyPostsPage /> },
+      { path: routes.users, element: <UsersList /> },
     ],
   },
   // {
