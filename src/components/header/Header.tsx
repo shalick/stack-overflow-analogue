@@ -17,7 +17,6 @@ const Header = () => {
 
         {user ? (
           <Box display="flex" alignItems="center" gap={2}>
-            <Typography>{user?.username}</Typography>
             <Button color={"inherit"} onClick={() => logoutMutation.mutate()}>
               Logout
             </Button>

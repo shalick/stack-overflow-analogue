@@ -16,6 +16,7 @@ import { HeaderLayout } from "./layouts/layouts.ts";
 import CssBaseline from "@mui/material/CssBaseline";
 import SidebarLayout from "./layouts/sidebar/SidebarLayout.tsx";
 import ViewPostPage from "./pages/view-post/ViewPostPage.tsx";
+import AccountPage from "./pages/account/AccountPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     children: [
       { path: routes.home, element: <HomePage /> },
       { path: routes.post, element: <ViewPostPage /> },
+      { path: routes.account, element: <AccountPage /> },
     ],
   },
   // {
