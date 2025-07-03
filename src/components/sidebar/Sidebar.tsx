@@ -45,7 +45,7 @@ const SideBar = () => {
               </ListItemButton>
             </Link>
 
-            <Link color={"inherit"} to={routes.userPosts}>
+            <Link color={"inherit"} to={routes.myPosts}>
               <ListItemButton sx={{ display: "flex", gap: 2 }}>
                 <TextSnippetOutlinedIcon />
                 My snippets

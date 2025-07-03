@@ -4,7 +4,7 @@ export const routes = {
   register: "/register",
   posts: "/posts",
   post: "/post/:postId",
-  userPosts: '/my-posts',
+  myPosts: '/my-posts',
   account: "/account",
   createPost: "/create-post",
   editPost: "/edit-post/:postId",

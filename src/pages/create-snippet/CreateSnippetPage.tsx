@@ -61,7 +61,7 @@ const CreateSnippetForm = () => {
       }
     },
     onSuccess: () => {
-      navigate(routes.userPosts);
+      navigate(routes.myPosts);
     },
   });
 
