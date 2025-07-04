@@ -4,6 +4,7 @@ import type {
     ChangePasswordRequest,
     UpdatePasswordResponseData,
     User,
+    UserStatistics,
     UserStatisticsResponse,
     UserWithPassword,
 } from '../types/user.ts';
@@ -24,6 +25,12 @@ export const fetchStatistics = async (userId: string) => {
   const response = await api.get<UserStatisticsResponse>(url);
   return response.data.data;
 };
+
+// export const fetchStatistics = async (id: string): Promise<UserStatistics> => {
+//   const response = await fetch(`/api/user/${id}/statistics`);
+//   const data = await response.json();
+//   return data.statistic; 
+// };
 
 export const changePassword = async (body: ChangePasswordRequest) => {
   await api.patch<ResponseWithMessage<UpdatePasswordResponseData>>('me/password', body);

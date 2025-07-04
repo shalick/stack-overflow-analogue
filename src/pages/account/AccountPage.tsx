@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes";
 import AccountPageModal from "../../components/modal/AccountPageModal";
+import StatisticsCard from "../../components/statistics-card/StatisticsCard";
 
 const AccountPage = () => {
   const { username, id, role } = useAuthStore((store) => store.user) as User;
@@ -112,56 +113,7 @@ const AccountPage = () => {
           </Box>
         )}
         {statistics && (
-          <Grid size={{ xs: 12, md: 8 }}>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Rating:
-              </Box>{" "}
-              {statistics?.rating}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Snippets:
-              </Box>{" "}
-              {statistics?.snippetsCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Comments:
-              </Box>{" "}
-              {statistics?.commentsCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Likes:
-              </Box>{" "}
-              {statistics?.likesCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Dislikes:
-              </Box>{" "}
-              {statistics?.dislikesCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Questions:
-              </Box>{" "}
-              {statistics?.questionsCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Correct Answers:
-              </Box>{" "}
-              {statistics?.correctAnswersCount}
-            </Typography>
-            <Typography variant="body2">
-              <Box component="span" fontWeight="bold">
-                Regular Answers:
-              </Box>{" "}
-              {statistics?.regularAnswersCount}
-            </Typography>
-          </Grid>
+          <StatisticsCard statistics={statistics}/>
         )}
       </Card>
       <AccountPageModal open={open} handleClose={handleClose} />

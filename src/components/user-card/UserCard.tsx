@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { User, UserStatistics } from "../../types/user.ts";
 import { fetchStatistics } from "../../api/users.ts";
+import StatisticsCard from "../statistics-card/StatisticsCard.tsx";
 
 interface UserProps {
   user: User;
@@ -31,7 +32,7 @@ const UserCard: FC<UserProps> = ({ user }) => {
   } = useQuery<{ statistic: UserStatistics }, Error>({
     queryKey: ["user-statistics", id],
     queryFn: () => fetchStatistics(id),
-    enabled: false, 
+    enabled: false,
   });
 
   const handleToggle = () => {
@@ -85,21 +86,8 @@ const UserCard: FC<UserProps> = ({ user }) => {
           <Typography sx={{ fontSize: "20px", textAlign: "center" }}>
             User statistics:
           </Typography>
-          <CardContent
-            sx={{
-              display: "grid",
-              columnGap: "20px",
-              gridTemplateColumns: "max-content 1fr",
-            }}
-          >
-            <Typography>SnippetsCount: {statistics.statistic.snippetsCount}</Typography>
-            <Typography>Rating: {statistics.statistic.rating}</Typography>
-            <Typography>CommentsCount: {statistics.statistic.commentsCount}</Typography>
-            <Typography>LikesCount: {statistics.statistic.likesCount}</Typography>
-            <Typography>DislikesCount: {statistics.statistic.dislikesCount}</Typography>
-            <Typography>QuestionsCount: {statistics.statistic.questionsCount}</Typography>
-            <Typography>CorrectAnswersCount: {statistics.statistic.correctAnswersCount}</Typography>
-            <Typography>RegularAnswersCount: {statistics.statistic.regularAnswersCount}</Typography>
+          <CardContent>
+            <StatisticsCard statistics={statistics.statistic}></StatisticsCard>
           </CardContent>
         </>
       )}
@@ -108,4 +96,3 @@ const UserCard: FC<UserProps> = ({ user }) => {
 };
 
 export default UserCard;
-
